@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "spring.mustache.expose-request-attributes",
+      "type": "java.lang.String",
+      "description": "Description for spring.mustache.expose-request-attributes."
+    }
+  ] }
