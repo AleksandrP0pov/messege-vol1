@@ -33,6 +33,7 @@ public class RegistrationController {
         user.setAcrive(true);
         user.setRoles(Collections.singleton(Role.USER)); // создает коллекцию с одинм занчением
         userRepository.save(user);
+        System.out.println("save user");
         return "redirect:/login";
     }
 }
