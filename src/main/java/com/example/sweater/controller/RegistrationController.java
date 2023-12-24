@@ -26,14 +26,12 @@ public class RegistrationController {
         User userFromDb = userRepository.findByUsername(user.getUsername());
         if (userFromDb != null){
             model.put("message", "User exists!");
-            System.out.println("go to login");
             return "/login";
         }
 
-        user.setAcrive(true);
+        user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER)); // создает коллекцию с одинм занчением
         userRepository.save(user);
-        System.out.println("save user");
         return "redirect:/login";
     }
 }

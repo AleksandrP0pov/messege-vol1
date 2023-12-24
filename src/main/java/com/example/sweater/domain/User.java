@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Set;
 
-import static org.springframework.boot.devtools.restart.AgentReloader.isActive;
+
 
 @Data
 @Entity
@@ -17,9 +17,10 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String username;
     private String password;
-    private boolean acrive;
+    private boolean active;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     // позволяет не создавать отдельную таблицу
