@@ -26,6 +26,7 @@ public class RegistrationController {
         User userFromDb = userRepository.findByUsername(user.getUsername());
         if (userFromDb != null){
             model.put("message", "User exists!");
+            System.out.println("go to login");
             return "/login";
         }
 
