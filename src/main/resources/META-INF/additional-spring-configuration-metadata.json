@@ -4,5 +4,10 @@
       "name": "spring.mustache.expose-request-attributes",
       "type": "java.lang.String",
       "description": "Description for spring.mustache.expose-request-attributes."
+    },
+    {
+      "name": "upload.path",
+      "type": "java.lang.String",
+      "description": "Description for upload.path."
     }
   ] }
