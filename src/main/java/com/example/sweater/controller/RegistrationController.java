@@ -29,7 +29,7 @@ public class RegistrationController {
             return "/login";
         }
 
-        user.setAcrive(true);
+        user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER)); // создает коллекцию с одинм занчением
         userRepository.save(user);
         return "redirect:/login";

@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Set;
 
-import static org.springframework.boot.devtools.restart.AgentReloader.isActive;
+
 
 @Data
 @Entity
@@ -17,9 +17,10 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String username;
     private String password;
-    private boolean acrive;
+    private boolean active;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     // позволяет не создавать отдельную таблицу
@@ -27,6 +28,10 @@ public class User implements UserDetails {
 //   создается таблица для ролей и соединяемся мы с ней по user_id
     @Enumerated(EnumType.STRING) // храним enum в виде строки
     private Set<Role> roles;
+
+    public boolean isAdmin(){
+        return roles.contains(Role.ADMIN);
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
