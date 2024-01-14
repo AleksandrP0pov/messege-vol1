@@ -1,16 +1,24 @@
 package com.example.sweater.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.validator.constraints.Length;
+
+import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
 public class Message {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
+    @NotBlank(message = "Please fill the message")
+    @Length(max = 2048, message = "Message too long (more than 2kB)")
     private String text;
     private String tag;
 
