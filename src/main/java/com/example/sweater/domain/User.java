@@ -1,13 +1,15 @@
 package com.example.sweater.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Set;
-
+import java.util.UUID;
 
 
 @Data
@@ -15,18 +17,26 @@ import java.util.Set;
 @Table(name = "usr")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
+    @NotBlank(message = "Username cannot be empty")
     private String username;
+    @NotBlank(message = "Password cannot be empty")
     private String password;
+//    @Transient
+//    @NotBlank(message = "Password confirmation cannot be empty")
+//    private String password2;
     private boolean active;
 
+    @Email(message = "Email is not correct")
+    @NotBlank(message = "Email cannot be empty")
+    private String email;
+    private String activationCode;
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    // позволяет не создавать отдельную таблицу
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-//   создается таблица для ролей и соединяемся мы с ней по user_id
-    @Enumerated(EnumType.STRING) // храним enum в виде строки
+    @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
     public boolean isAdmin(){
