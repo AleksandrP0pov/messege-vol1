@@ -3,14 +3,12 @@ import com.example.sweater.domain.Message;
 import com.example.sweater.domain.User;
 import com.example.sweater.repository.MessageRepository;
 import jakarta.validation.Valid;
-import org.apache.logging.log4j.message.MessageCollectionMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,8 +18,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 @Controller
 public class MainController {
@@ -62,7 +58,7 @@ public class MainController {
         message.setAuthor(user);
 
         if (bindingResult.hasErrors()) {
-            Map<String, String> errorMap = ControllerUtil.getErrors(bindingResult);
+            Map<String, String> errorMap = ControllerUtils.getErrors(bindingResult);
             model.mergeAttributes(errorMap);
             model.addAttribute("message", message);
         }else {
@@ -78,6 +74,8 @@ public class MainController {
 
                 message.setFilename(resultFilename);
             }
+
+            model.addAttribute("message", null); // удаление сообщения которое мы только что хотели добавить
 
             messageRepository.save(message);
         }
